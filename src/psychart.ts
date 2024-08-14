@@ -216,7 +216,7 @@ export class Psychart {
      * Return an array of all allowed gradient names.
      */
     public static getGradientNames(): PaletteName[] {
-        return Object.keys(Palette).filter(name => name !== this.regionGradient) as PaletteName[];
+        return Object.keys(Palette) as PaletteName[];
     }
     /**
      * Return an array of region names and their corresponding tooltips.
