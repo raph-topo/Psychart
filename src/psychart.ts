@@ -37,7 +37,7 @@ export class Psychart {
     /**
      * Defines the palette name used for region coloring.
      */
-    private static readonly regionGradient: PaletteName = 'Purplish';
+    private static readonly regionGradient: PaletteName = 'Grayscale';
     /**
      * Predefined regions source: 2021 Equipment Thermal Guidelines for Data Processing Environments
      * ASHRAE-55 source: https://comfort.cbe.berkeley.edu/
@@ -344,8 +344,8 @@ export class Psychart {
                 // Force region gradient to remain within subrange of full span to improve visual impact in light/dark themes
                 const minRegion = 0 + -1, // -1 (arbitrary) Affects minimum span of region
                     maxRegion = this.config.regions.length - 1 + 4, // +4 (arbitrary) Affects maximum span of region
-                    minSpan = style.darkTheme ? maxRegion : minRegion,
-                    maxSpan = style.darkTheme ? minRegion : maxRegion,
+                    maxSpan = style.darkTheme ? maxRegion : minRegion,
+                    minSpan = style.darkTheme ? minRegion : maxRegion,
                     data = this.deepCopy(region.data);
                 if (this.config.unitSystem === 'IP') {
                     // Convert from SI to US units
@@ -613,7 +613,9 @@ export class Psychart {
         }
         // Create the SVG element to render the shaded region
         const region = document.createElementNS(NS, 'path');
-        region.setAttribute('fill', color.toString());
+        region.setAttribute('fill', "none");
+        region.setAttribute('stroke', color.toString());
+        region.setAttribute('stroke-width', "3px");
         this.setPathData(region, data, true);
         this.g.regions.appendChild(region);
         // Optionally render a tooltip on mouse hover
